@@ -68,13 +68,13 @@ fileprivate var renderer:RenderAR!
      */
     @objc public var onlyRenderWhileRecording:Bool = true
     /**
-     A boolean that enables or disables audio recording. Default is `true`.
+     A boolean that enables or disables audio recording. Default is `true`, changed to `false` by @erikterwiel, solves issue #41.
      */
-    @objc public var enableAudio:Bool = true
+    @objc public var enableAudio:Bool = false
     /**
-     A boolean that enables or disables audio `mixWithOthers` if audio recording is enabled. This allows playing music and recording audio at the same time. Default is `true`.
+     A boolean that enables or disables audio `mixWithOthers` if audio recording is enabled. This allows playing music and recording audio at the same time. Default is `true`, changed to `false` by @erikterwiel, solves issue #41.
      */
-    @objc public var enableMixWithOthers:Bool = true
+    @objc public var enableMixWithOthers:Bool = false
     /**
      A boolean that enables or disables adjusting captured media for sharing online. Default is `true`.
      */
@@ -237,17 +237,19 @@ fileprivate var renderer:RenderAR!
             status = .readyToRecord
         }
 
-        switch requestMicPermission {
-        case .auto:
-            AVAudioSession.sharedInstance().requestRecordPermission({ permitted in
-                if permitted {
-                    self.micStatus = .enabled
-                }else{
-                    self.micStatus = .disabled
-                }
-            })
-        default:
-            break
+        if enableAudio {
+            switch requestMicPermission {
+            case .auto:
+                AVAudioSession.sharedInstance().requestRecordPermission({ permitted in
+                    if permitted {
+                        self.micStatus = .enabled
+                    }else{
+                        self.micStatus = .disabled
+                    }
+                })
+            default:
+                break
+            }
         }
         
         onlyRenderWhileRec = onlyRenderWhileRecording
@@ -658,14 +660,16 @@ fileprivate var renderer:RenderAR!
      A boolean that returns `true` when a the Microphone access is permitted. Otherwise, it returns `false`.
      */
     @objc public func requestMicrophonePermission(_ finished: ((_ status: Bool) -> Swift.Void)? = nil) {
-        AVAudioSession.sharedInstance().requestRecordPermission({ permitted in
-            finished?(permitted)
-            if permitted {
-                self.micStatus = .enabled
-            }else{
-                self.micStatus = .disabled
-            }
-        })
+        if enableAudio {
+            AVAudioSession.sharedInstance().requestRecordPermission({ permitted in
+                finished?(permitted)
+                if permitted {
+                    self.micStatus = .enabled
+                }else{
+                    self.micStatus = .disabled
+                }
+            })
+        }
     }
 }
 

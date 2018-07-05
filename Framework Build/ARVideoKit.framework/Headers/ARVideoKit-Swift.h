@@ -323,9 +323,9 @@ SWIFT_CLASS("_TtC10ARVideoKit8RecordAR") SWIFT_AVAILABILITY(ios,introduced=11.0)
 @property (nonatomic) enum ARFrameMode contentMode;
 /// A boolean that enables or disables AR content rendering before recording for image & video processing. Default is <code>true</code>.
 @property (nonatomic) BOOL onlyRenderWhileRecording;
-/// A boolean that enables or disables audio recording. Default is <code>true</code>.
+/// A boolean that enables or disables audio recording. Default is <code>true</code>, changed to <code>false</code> by @erikterwiel, solves issue #41.
 @property (nonatomic) BOOL enableAudio;
-/// A boolean that enables or disables audio <code>mixWithOthers</code> if audio recording is enabled. This allows playing music and recording audio at the same time. Default is <code>true</code>.
+/// A boolean that enables or disables audio <code>mixWithOthers</code> if audio recording is enabled. This allows playing music and recording audio at the same time. Default is <code>true</code>, changed to <code>false</code> by @erikterwiel, solves issue #41.
 @property (nonatomic) BOOL enableMixWithOthers;
 /// A boolean that enables or disables adjusting captured media for sharing online. Default is <code>true</code>.
 @property (nonatomic) BOOL adjustVideoForSharing;
