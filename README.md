@@ -1,3 +1,5 @@
+**THIS FORK FIXES ISSUE #41 BY DEFAULTING FRAMEWORK TO NOT REQUIRING MICROPHONE PERMISSION**
+
 ![intro image](http://www.ahmedbekhit.com/tutorials/ARVideoKit_prev_1.png)
 
 An iOS Framework that enables developers to capture videos 📹, photos 🌄, Live Photos 🎇, and GIFs 🎆 with ARKit content.
